@@ -1,4 +1,4 @@
-# Vancir的博客
+# aT0ngMu的博客
 
 ![travis-ci-status](https://travis-ci.com/Vancir/blog.svg?branch=master)
 
@@ -18,7 +18,7 @@
 npm install -g hexo-cli
 
 # 克隆代码并安装npm包
-git clone  https://github.com/Vancir/blog.git
+git clone https://github.com/aT0ngMu/aT0ngMu.github.io.git
 cd blog
 npm install 
 ```

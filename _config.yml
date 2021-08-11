@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Vancir
-subtitle: 'Reversing makes insight extraordinary'
+title: aT0ngMu
+subtitle: ''
 description: ''
 keywords:
-author: Vancir
+author: aT0ngMu
 language: zh-CN
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.vancir.com
+url: https://at0ngmu.github.io/
 root: /
 permalink: :title/
 permalink_defaults:
