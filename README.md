@@ -15,12 +15,12 @@
     
 ``` bash
 # 安装hexo工具
-npm install -g hexo-cli
+npm install -g hexo-cli --registry=https://registry.npm.taobao.org
 
 # 克隆代码并安装npm包
 git clone https://github.com/aT0ngMu/aT0ngMu.github.io.git
 cd blog
-npm install 
+npm install --registry=https://registry.npm.taobao.org
 ```
 
 安装好后使用以下命令:
