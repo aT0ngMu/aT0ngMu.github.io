@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://at0ngmu.github.io/"/>
-  <updated>2021-08-28T14:00:14.732Z</updated>
+  <updated>2021-08-11T16:03:22.650Z</updated>
   <id>https://at0ngmu.github.io/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>测试用文章</title>
-    <link href="https://at0ngmu.github.io/test-notes/"/>
-    <id>https://at0ngmu.github.io/test-notes/</id>
-    <published>2021-08-27T20:00:00.000Z</published>
-    <updated>2021-08-28T14:00:14.732Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;hello-hexo&quot;&gt;&lt;a href=&quot;#hello-hexo&quot; class=&quot;headerlink&quot; title=&quot;hello hexo&quot;&gt;&lt;/a&gt;hello
-        
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>CTF中上传绕过各种姿势（未完待续……）</title>
