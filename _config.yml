@@ -111,4 +111,7 @@ feed:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/aT0ngMu/aT0ngMu.github.io
+  branch: gh-pages
+  message: "hexo auto generated website."
