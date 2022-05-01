@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在上一篇搭建好web环境后，再进行Ubuntu下DVWA的搭建，在搭建过程中会出现各种各样的问题。以下是本菜鸡在搭建过程中出现的问题以及解决办法~ 首先在GitHub下载安装DVWA，压缩包放到 &#x2F;var&#x2F;www&#x2F;html之后解压缩 12atongmu@atongmu-virtual-machine:~&#x2F;Downloads$ sudo cp -i DVWA-master.zip &#x2F;var&#x2F;www&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二">
+<meta property="og:url" content="https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/index.html">
+<meta property="og:site_name" content="aT0ngMu是个小机灵鬼儿づ￣3￣">
+<meta property="og:description" content="在上一篇搭建好web环境后，再进行Ubuntu下DVWA的搭建，在搭建过程中会出现各种各样的问题。以下是本菜鸡在搭建过程中出现的问题以及解决办法~ 首先在GitHub下载安装DVWA，压缩包放到 &#x2F;var&#x2F;www&#x2F;html之后解压缩 12atongmu@atongmu-virtual-machine:~&#x2F;Downloads$ sudo cp -i DVWA-master.zip &#x2F;var&#x2F;www&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/EXL3qH9g84kfPry.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/R3L7ehZ5PXty6DV.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/aFzs6Eiq2HMbJjl.png">
+<meta property="article:published_time" content="2018-11-19T17:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-29T10:22:34.993Z">
+<meta property="article:author" content="aT0ngMu">
+<meta property="article:tag" content="DVWA搭建">
+<meta property="article:tag" content="lamp搭建">
+<meta property="article:tag" content="sqli-labs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/08/11/EXL3qH9g84kfPry.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="aT0ngMu是个小机灵鬼儿づ￣3￣" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8-HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%B8%AD%E7%9A%84XFF/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%B8%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&text=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&is_video=false&description=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二&body=Check out this article: https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&name=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&t=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">aT0ngMu是个小机灵鬼儿づ￣3￣</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-11-19T17:00:00.000Z" itemprop="datePublished">2018-11-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/DVWA%E6%90%AD%E5%BB%BA/" rel="tag">DVWA搭建</a>, <a class="tag-link" href="/tags/lamp%E6%90%AD%E5%BB%BA/" rel="tag">lamp搭建</a>, <a class="tag-link" href="/tags/sqli-labs/" rel="tag">sqli-labs</a>
+    </div>
+
+
+      <!-- 2017.6.4，masikkk新增，hexo-wordcount 字数统计 -->
+      <span class="entry-date">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="post-count">556</span>字                      
+      </span>        
+      <!-- 2017.6.4，masikkk新增，hexo-wordcount 阅读时长预计 -->
+      <span class="entry-date">
+        <span class="fa fa-hourglass-half" aria-hidden="true"></span>
+        <span class="post-count">2</span>分钟                      
+      </span>    
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>在上一篇搭建好web环境后，再进行Ubuntu下DVWA的搭建，在搭建过程中会出现各种各样的问题。以下是本菜鸡在搭建过程中出现的问题以及解决办法~</p>
+<p>首先在GitHub下载安装DVWA，压缩包放到 /var/www/html之后解压缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">atongmu@atongmu-virtual-machine:~/Downloads$ sudo cp -i DVWA-master.zip /var/www/html</span><br><span class="line">atongmu@atongmu-virtual-machine:/var/www/html$sudo unzip DVWA-master.zip</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器输入127.0.0.1/DVWA-master/setup.php后页面显示：需要我们修改配置文件后缀名为.php</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atongmu@atongmu-virtual-machine:/var/www/html/DVWA-master/config$ sudo mv config.inc.php.dist config.inc.php</span><br></pre></td></tr></table></figure>
+
+<p>菜鸡装到这里，再重启apache2以后发现，在DVWA界面出现了很多PHP不完整代码，如同一个正常人长了天花一般触目惊心……后经分析原因是apache2无法解析PHP代码。到这里，关键一步就是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install apache2</span><br><span class="line">sudo apt-get install php7.2</span><br><span class="line">sudo apt-get install libapache2-mod-php</span><br></pre></td></tr></table></figure>
+
+<p>第三条命令的目的就是：apache缺少PHP的延展模块，所以无法解析PHP~</p>
+<p>之后，页面显示正常……</p>
+<p>下一步开始修改下面的disable and no</p>
+<p><img src="https://i.loli.net/2021/08/11/EXL3qH9g84kfPry.png" alt="1.png"></p>
+<p>第一处：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vi php.ini</span><br><span class="line">把allow_url_include = off改为on</span><br><span class="line">把allow_url_fopen = off改为on</span><br></pre></td></tr></table></figure>
+
+<p>第二处：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install php7.2-gd</span><br><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+
+<p>第三处</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install php7.2-mysql</span><br><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+
+<p>在进行第二三处的时候请注意：搭建的dvwa的PHP版本是否是7.2，因为在之前添加apache的PHP扩展模块时，相当于安装了从5.6到7.2的所有模块，dvwa会自动匹配最高级版本，现在的PHP最高版本为7.2.</p>
+<p>第四处：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls -al /var/www/html/DVWA-master/external/phpids/0.6/lib/IDS/tmp</span><br><span class="line">sudo /etc/init.d/apache2 restart</span><br><span class="line">sudo chmod 666 /var/www/html/DVWA-master/hackable/uploads</span><br><span class="line">sudo chmod 666 /var/www/html/DVWA-master/external/phpids/0.6/lib/IDS/tmp/phpids_log.txt</span><br><span class="line">sudo /etc/init.d/apache2 restart</span><br><span class="line">sudo chmod 666 /var/www/html/DVWA-master/config</span><br><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+
+<p>之后本以为会顺利搭完……菜鸡又出现了状况……</p>
+<p>在点击下面的creat databases时，页面返回是……</p>
+<p><img src="https://i.loli.net/2021/08/11/R3L7ehZ5PXty6DV.png" alt="2.png"></p>
+<p>之后才发现</p>
+<p><img src="https://i.loli.net/2021/08/11/aFzs6Eiq2HMbJjl.png" alt="3.png"></p>
+<p>这里的password要与MySQL一致才可以……</p>
+<p>重启apache，重新加载url，顺利创建……</p>
+<p>以下列出dvwa的默认登陆账号与密码：</p>
+<p><em>admin/password</em> gordonb/abc123<br><em>1337/charley</em> pablo/letmein<br>*smithy/password</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&text=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&is_video=false&description=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二&body=Check out this article: https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&title=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&name=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/&t=集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 aT0ngMu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'aT0ngMu';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

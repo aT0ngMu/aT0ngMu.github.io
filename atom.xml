@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>aT0ngMu是个小机灵鬼儿づ￣3￣</title>
+  <icon>https://at0ngmu.github.io/icon.png</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://at0ngmu.github.io/"/>
+  <updated>2022-04-29T11:38:28.099Z</updated>
+  <id>https://at0ngmu.github.io/</id>
+  
+  <author>
+    <name>aT0ngMu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PaperReading_FUDGE</title>
+    <link href="https://at0ngmu.github.io/PaperReading_FUDGE/"/>
+    <id>https://at0ngmu.github.io/PaperReading_FUDGE/</id>
+    <published>2022-04-29T10:26:29.626Z</published>
+    <updated>2022-04-29T11:38:28.099Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;FUDGE-Fuzz-Driver-Generation-at-Scale&quot;&gt;&lt;a href=&quot;#FUDGE-Fuzz-Driver-Generation-at-Scale&quot; class=&quot;headerlink&quot; title=&quot;FUDGE: Fuzz
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CTF中上传绕过各种姿势（未完待续……）</title>
+    <link href="https://at0ngmu.github.io/CTF%E4%B8%AD%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF%EF%BC%88%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E2%80%A6%E2%80%A6%EF%BC%89/"/>
+    <id>https://at0ngmu.github.io/CTF%E4%B8%AD%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF%EF%BC%88%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E2%80%A6%E2%80%A6%EF%BC%89/</id>
+    <published>2018-11-19T20:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.992Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;之前做过的一个比较简单的文件上传，上传图片木马后，直接bp改包，利用%00截断改后缀就可以得到flag。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://ctf5.shiyanbar.com/web/upload/&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="大小写绕过" scheme="https://at0ngmu.github.io/tags/%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>反向代理服务器-HTTP请求头中的XFF</title>
+    <link href="https://at0ngmu.github.io/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8-HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%B8%AD%E7%9A%84XFF/"/>
+    <id>https://at0ngmu.github.io/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8-HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%B8%AD%E7%9A%84XFF/</id>
+    <published>2018-11-19T19:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;在做最基础的有关于XFF头的ctf-web题时对xff原理的简单记录&quot;&gt;&lt;a href=&quot;#在做最基础的有关于XFF头的ctf-web题时对xff原理的简单记录&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="反向代理" scheme="https://at0ngmu.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    
+      <category term="XFF" scheme="https://at0ngmu.github.io/tags/XFF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之二</title>
+    <link href="https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/"/>
+    <id>https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%BA%8C/</id>
+    <published>2018-11-19T17:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在上一篇搭建好web环境后，再进行Ubuntu下DVWA的搭建，在搭建过程中会出现各种各样的问题。以下是本菜鸡在搭建过程中出现的问题以及解决办法~&lt;/p&gt;
+&lt;p&gt;首先在GitHub下载安装DVWA，压缩包放到 /var/www/html之后解压缩&lt;/p&gt;
+&lt;figure
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="DVWA搭建" scheme="https://at0ngmu.github.io/tags/DVWA%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="lamp搭建" scheme="https://at0ngmu.github.io/tags/lamp%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="sqli-labs" scheme="https://at0ngmu.github.io/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>集lamp搭建、DVWA搭建、sqli-labs搭建配置教程及常见问题解决之一</title>
+    <link href="https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%B8%80/"/>
+    <id>https://at0ngmu.github.io/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%B8%80/</id>
+    <published>2018-11-19T16:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;众所周知，我们在搭建DVWA时，要先搭建好web环境—LAMP（Linux+Apache2+Mysql+PHP5.6）。那么以下就是LAMP具体搭建步骤及问题解决方式。&lt;/p&gt;
+&lt;p&gt;第一步，安装并配置Mysql。安装顺利的话，直接输入以下三条命令：&lt;/p&gt;
+&lt;figure
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="DVWA搭建" scheme="https://at0ngmu.github.io/tags/DVWA%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="lamp搭建" scheme="https://at0ngmu.github.io/tags/lamp%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="sqli-labs" scheme="https://at0ngmu.github.io/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一道集PHP伪协议及PHP反序列化综合运用的CTF</title>
+    <link href="https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/"/>
+    <id>https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/</id>
+    <published>2018-11-18T18:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.993Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;首先拿到题目后，毫无疑问，查看一下源码&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="PHP伪协议" scheme="https://at0ngmu.github.io/tags/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/"/>
+    
+      <category term="反序列化" scheme="https://at0ngmu.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>信息收集之nmap</title>
+    <link href="https://at0ngmu.github.io/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B9%8Bnmap/"/>
+    <id>https://at0ngmu.github.io/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B9%8Bnmap/</id>
+    <published>2018-11-18T17:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.992Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;探测主机存活常用方式&quot;&gt;&lt;a href=&quot;#探测主机存活常用方式&quot; class=&quot;headerlink&quot; title=&quot;探测主机存活常用方式&quot;&gt;&lt;/a&gt;探测主机存活常用方式&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;扫描网段主机：进行ping扫描&lt;br&gt;&lt;code&gt;nmap
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="端口扫描" scheme="https://at0ngmu.github.io/tags/%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/"/>
+    
+      <category term="信息收集" scheme="https://at0ngmu.github.io/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>USB流量分析</title>
+    <link href="https://at0ngmu.github.io/USB%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+    <id>https://at0ngmu.github.io/USB%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</id>
+    <published>2018-11-18T16:00:00.000Z</published>
+    <updated>2022-04-29T10:22:34.992Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;USB接口简介&quot;&gt;&lt;a href=&quot;#USB接口简介&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="原创" scheme="https://at0ngmu.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="流量分析" scheme="https://at0ngmu.github.io/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+</feed>

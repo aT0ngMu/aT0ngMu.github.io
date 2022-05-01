@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="首先拿到题目后，毫无疑问，查看一下源码 1234567891011&lt;!--  $user &#x3D; $_GET[&quot;txt&quot;];  $file &#x3D; $_GET[&quot;file&quot;];  $pass &#x3D; $_GET[&quot;password&quot;];    if(isset($user)&amp;&amp;(file_get_contents($user,&#39;r&#39;)&#x3D;&#x3D;&#x3D;&quot;welcome to the bugkuctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一道集PHP伪协议及PHP反序列化综合运用的CTF">
+<meta property="og:url" content="https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/index.html">
+<meta property="og:site_name" content="aT0ngMu是个小机灵鬼儿づ￣3￣">
+<meta property="og:description" content="首先拿到题目后，毫无疑问，查看一下源码 1234567891011&lt;!--  $user &#x3D; $_GET[&quot;txt&quot;];  $file &#x3D; $_GET[&quot;file&quot;];  $pass &#x3D; $_GET[&quot;password&quot;];    if(isset($user)&amp;&amp;(file_get_contents($user,&#39;r&#39;)&#x3D;&#x3D;&#x3D;&quot;welcome to the bugkuctf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/8Fpr2NfGheadXyj.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/oVi7pbluDk8LMqR.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/k41uCXsiTl3ja2o.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/9fxMITFDy8WkvRl.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/11/HCewWuc58MpJohf.png">
+<meta property="article:published_time" content="2018-11-18T18:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-29T10:22:34.993Z">
+<meta property="article:author" content="aT0ngMu">
+<meta property="article:tag" content="PHP伪协议">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/08/11/8Fpr2NfGheadXyj.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>记一道集PHP伪协议及PHP反序列化综合运用的CTF</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="aT0ngMu是个小机灵鬼儿づ￣3￣" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/%E9%9B%86lamp%E6%90%AD%E5%BB%BA%E3%80%81DVWA%E6%90%AD%E5%BB%BA%E3%80%81sqli-labs%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E4%B9%8B%E4%B8%80/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B9%8Bnmap/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&text=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&is_video=false&description=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一道集PHP伪协议及PHP反序列化综合运用的CTF&body=Check out this article: https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&name=记一道集PHP伪协议及PHP反序列化综合运用的CTF&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&t=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        记一道集PHP伪协议及PHP反序列化综合运用的CTF
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">aT0ngMu是个小机灵鬼儿づ￣3￣</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-11-18T18:00:00.000Z" itemprop="datePublished">2018-11-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">PHP伪协议</a>, <a class="tag-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a>
+    </div>
+
+
+      <!-- 2017.6.4，masikkk新增，hexo-wordcount 字数统计 -->
+      <span class="entry-date">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="post-count">962</span>字                      
+      </span>        
+      <!-- 2017.6.4，masikkk新增，hexo-wordcount 阅读时长预计 -->
+      <span class="entry-date">
+        <span class="fa fa-hourglass-half" aria-hidden="true"></span>
+        <span class="post-count">4</span>分钟                      
+      </span>    
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>首先拿到题目后，毫无疑问，查看一下源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--  </span><br><span class="line">$user = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$pass = $_GET[<span class="string">"password"</span>];    </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;  </span><br><span class="line"><span class="keyword">include</span>($file); <span class="comment">//hint.php  </span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;  </span><br><span class="line">&#125;  </span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>解读一下源码的意思：</p>
+<ol>
+<li>get方式传入三个参数：txt，file，password</li>
+<li>file_get_contents()函数的作用是将$user的内容读取出来，在此即为将user读取出来的内容数值与类型完全等于 <code>welcome to the bugkuctf</code>（三个等于号）</li>
+<li>如果满足if条件，则打印输出”hello admin!”。并且将包含的hint.php内容显示出来</li>
+</ol>
+<hr>
+<p>在此，可以运用两个PHP的伪协议</p>
+<ul>
+<li>php://filter 可以进行任意文件的读取。</li>
+</ul>
+<p><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">有关php://filter的详细了解</a></p>
+<ul>
+<li>php://input 可以读取没有处理过的post数据</li>
+</ul>
+<p>通过对以上代码的分析，我们有了解决思路：</p>
+<ul>
+<li><p>对于file_get_contents($user,’r’)===”welcome to the bugkuctf”，我们可以借用php伪协议php://input，要想使user中的字符串读取出来与三等号后的内容一致，就必须使他的传入参数txt，来post welcome to the bugkuctf</p>
+</li>
+<li><p>再来看include($file); //hint.php 我们可以用php://filter来进行hint.php的base编码，从而可以读取出hint.php的base编码，从而可以读取出hint.php的内容。**</p>
+</li>
+</ul>
+<p>构造payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?txt&#x3D;php:&#x2F;&#x2F;input&amp;file&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;hint.php</span><br></pre></td></tr></table></figure>
+
+<p>利用bp改包</p>
+<p><img src="https://i.loli.net/2021/08/11/8Fpr2NfGheadXyj.png" alt="1.png"></p>
+<p>得到回显</p>
+<p><img src="https://i.loli.net/2021/08/11/oVi7pbluDk8LMqR.png" alt="2.png"></p>
+<p>发现一组base64,再进行base64解码，发现又有一组代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#hint.php</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;<span class="comment">//flag.php  </span></span><br><span class="line"><span class="keyword">public</span> $file;  </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;file))&#123;  </span><br><span class="line">        <span class="keyword">echo</span> file_get_contents(<span class="keyword">$this</span>-&gt;file); </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">"good"</span>);</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>再来分析这段代码</p>
+<p>看到flag.php，猜测flag或许就从这段代码中找出。发现了比较关键的一个函数<strong>tostring(),此函数的作用是将Flag类作为字符串执行时会自动执行此函数，并且将变量$file作为文件名输出文件内容。但是，这个时候发现并没有代码显示可以调用这个类，如果没有调用这个类，也就无法执行</strong>tostring()函数。而且，还有一个password参数没有用上，所以考虑，或许还会存在另一段代码。那就接着上一步，把hint.php换成index.php会有什么发现呢？</p>
+<p>果不其然，确实又有了重大发现：</p>
+<p><img src="https://i.loli.net/2021/08/11/k41uCXsiTl3ja2o.png" alt="3.png"></p>
+<p>再次得到回显</p>
+<p><img src="https://i.loli.net/2021/08/11/9fxMITFDy8WkvRl.png" alt="4.png"></p>
+<p>解码后</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">index.php</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">$txt = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$password = $_GET[<span class="string">"password"</span>];  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($txt)&amp;&amp;(file_get_contents($txt,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"hello friend!&lt;br&gt;"</span>;  </span><br><span class="line"><span class="keyword">if</span>(preg_match(<span class="string">"/flag/"</span>,$file))&#123; </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"ä¸è½ç°å¨å°±ç»ä½ flagå¦"</span>;</span><br><span class="line">    <span class="keyword">exit</span>();  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">    <span class="keyword">include</span>($file);   </span><br><span class="line">    $password = unserialize($password);  </span><br><span class="line">    <span class="keyword">echo</span> $password;  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"you are not the number of bugku ! "</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span>  </span><br><span class="line"></span><br><span class="line">&lt;!--  </span><br><span class="line">$user = $_GET[<span class="string">"txt"</span>];  </span><br><span class="line">$file = $_GET[<span class="string">"file"</span>];  </span><br><span class="line">$pass = $_GET[<span class="string">"password"</span>];  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($user)&amp;&amp;(file_get_contents($user,<span class="string">'r'</span>)===<span class="string">"welcome to the bugkuctf"</span>))&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"hello admin!&lt;br&gt;"</span>;  </span><br><span class="line"><span class="keyword">include</span>($file); <span class="comment">//hint.php  </span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"you are not admin ! "</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>结果发现了正则匹配函数preg_match(“/flag/“,$file)，对flag进行了正则匹配。</p>
+<p>再来接着看，else代码块中又一次包含了$file,并且对$password进行反序列化。通过对上述hint.php的解读，我们就可以构造password，password为Flag类型，字符串变量file=flag.php。构造的序列化对象payload，password=O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}</p>
+<p><img src="https://i.loli.net/2021/08/11/HCewWuc58MpJohf.png" alt="5.png"></p>
+<p>在这里简单说一下php的反序列化</p>
+<p>将原来的某个对象进行序列化之后，从序列化后的结果中就可以知道这个对象的具体类型和值</p>
+<p>在这里简单说一下序列化后的几个字母的意思，以password=O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}为例</p>
+<ul>
+<li>O（大写）：对象class</li>
+<li>4：4个字符</li>
+<li>“Flag”：对象名</li>
+<li>1：数量，一个</li>
+<li>s：string</li>
+<li>{}里的为参数</li>
+</ul>
+<p>反序列化可以理解为序列化的的逆运算</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&text=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&is_video=false&description=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一道集PHP伪协议及PHP反序列化综合运用的CTF&body=Check out this article: https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&title=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&name=记一道集PHP伪协议及PHP反序列化综合运用的CTF&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://at0ngmu.github.io/%E8%AE%B0%E4%B8%80%E9%81%93%E9%9B%86PHP%E4%BC%AA%E5%8D%8F%E8%AE%AEPHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%BC%E5%90%88%E8%BF%90%E7%94%A8%E7%9A%84CTF/&t=记一道集PHP伪协议及PHP反序列化综合运用的CTF" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 aT0ngMu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'aT0ngMu';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
