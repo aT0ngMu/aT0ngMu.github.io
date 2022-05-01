@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="FUDGE: Fuzz Driver Generation at Scaleidea基于libfuzzer面向C&#x2F;C++ 自动化生成fuzzer 涉及分析方法涉及分析方法:程序静态分析，程序切片 系统架构 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取i">
+    <meta name="description" content="FUDGE: Fuzz Driver Generation at Scaleidea基于libfuzzer面向C&#x2F;C++ 自动化生成fuzzer 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取interesting代码片段；然后自动合成targets c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PaperReading_FUDGE">
 <meta property="og:url" content="https://at0ngmu.github.io/PaperReading_FUDGE/index.html">
 <meta property="og:site_name" content="aT0ngMu是个小机灵鬼儿づ￣3￣">
-<meta property="og:description" content="FUDGE: Fuzz Driver Generation at Scaleidea基于libfuzzer面向C&#x2F;C++ 自动化生成fuzzer 涉及分析方法涉及分析方法:程序静态分析，程序切片 系统架构 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取i">
+<meta property="og:description" content="FUDGE: Fuzz Driver Generation at Scaleidea基于libfuzzer面向C&#x2F;C++ 自动化生成fuzzer 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取interesting代码片段；然后自动合成targets c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png">
 <meta property="og:image" content="https://s2.loli.net/2022/05/01/ImsLEeWZnJ2po8z.png">
@@ -23,8 +23,8 @@
 <meta property="og:image" content="https://s2.loli.net/2022/05/01/PeapdzGhJ674ofx.png">
 <meta property="og:image" content="https://s2.loli.net/2022/05/01/9QHiTCXOgIKdsvc.png">
 <meta property="og:image" content="https://s2.loli.net/2022/05/01/t9og8Ihj5meMY4d.png">
-<meta property="article:published_time" content="2022-05-01T12:45:56.297Z">
-<meta property="article:modified_time" content="2022-05-01T12:45:56.297Z">
+<meta property="article:published_time" content="2022-05-01T13:34:53.168Z">
+<meta property="article:modified_time" content="2022-05-01T13:34:53.168Z">
 <meta property="article:author" content="aT0ngMu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png">
@@ -115,7 +115,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FUDGE-Fuzz-Driver-Generation-at-Scale"><span class="toc-number">1.</span> <span class="toc-text">FUDGE: Fuzz Driver Generation at Scale</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#idea"><span class="toc-number">1.1.</span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#涉及分析方法"><span class="toc-number">1.2.</span> <span class="toc-text">涉及分析方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统架构"><span class="toc-number">1.3.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各阶段实现"><span class="toc-number">1.4.</span> <span class="toc-text">各阶段实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Slicing-stage"><span class="toc-number">1.4.1.</span> <span class="toc-text">Slicing stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target-Synthesis"><span class="toc-number">1.4.2.</span> <span class="toc-text">Target Synthesis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target-evaluation"><span class="toc-number">1.4.3.</span> <span class="toc-text">Target evaluation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前端UI显示"><span class="toc-number">1.4.4.</span> <span class="toc-text">前端UI显示</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FUDGE-Fuzz-Driver-Generation-at-Scale"><span class="toc-number">1.</span> <span class="toc-text">FUDGE: Fuzz Driver Generation at Scale</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#idea"><span class="toc-number"></span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#涉及分析方法"><span class="toc-number"></span> <span class="toc-text">涉及分析方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统架构"><span class="toc-number"></span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#各阶段实现"><span class="toc-number"></span> <span class="toc-text">各阶段实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Slicing-stage"><span class="toc-number">1.</span> <span class="toc-text">Slicing stage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Synthesis"><span class="toc-number">2.</span> <span class="toc-text">Target Synthesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-evaluation"><span class="toc-number">3.</span> <span class="toc-text">Target evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端UI显示"><span class="toc-number">4.</span> <span class="toc-text">前端UI显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未来工作方向"><span class="toc-number">5.</span> <span class="toc-text">未来工作方向:</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -139,7 +139,7 @@
       
     <div class="postdate">
       
-        <time datetime="2022-05-01T12:45:56.297Z" itemprop="datePublished">2022-05-01</time>
+        <time datetime="2022-05-01T13:34:53.168Z" itemprop="datePublished">2022-05-01</time>
         
       
     </div>
@@ -164,11 +164,11 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="FUDGE-Fuzz-Driver-Generation-at-Scale"><a href="#FUDGE-Fuzz-Driver-Generation-at-Scale" class="headerlink" title="FUDGE: Fuzz Driver Generation at Scale"></a>FUDGE: Fuzz Driver Generation at Scale</h2><h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><p>基于libfuzzer面向C/C++ 自动化生成fuzzer</p>
-<h3 id="涉及分析方法"><a href="#涉及分析方法" class="headerlink" title="涉及分析方法"></a>涉及分析方法</h3><p>涉及分析方法:程序静态分析，程序切片</p>
-<h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><p><img src="https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png" alt="img.png"></p>
+    <h2 id="FUDGE-Fuzz-Driver-Generation-at-Scale"><a href="#FUDGE-Fuzz-Driver-Generation-at-Scale" class="headerlink" title="FUDGE: Fuzz Driver Generation at Scale"></a>FUDGE: Fuzz Driver Generation at Scale</h2><h1 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h1><p>基于libfuzzer面向C/C++ 自动化生成fuzzer</p>
 <p>整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段<br>前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取interesting代码片段；<br>然后自动合成targets candidate；通过libfuzzer大规模运行targets candidate并对targets进行评估。<br>每个阶段信息都会实时输出到FUDGE前端。</p>
-<h3 id="各阶段实现"><a href="#各阶段实现" class="headerlink" title="各阶段实现"></a>各阶段实现</h3><h4 id="Slicing-stage"><a href="#Slicing-stage" class="headerlink" title="Slicing stage"></a>Slicing stage</h4><p>slicing阶段思路：</p>
+<h1 id="涉及分析方法"><a href="#涉及分析方法" class="headerlink" title="涉及分析方法"></a>涉及分析方法</h1><p>涉及分析方法:程序静态分析，程序切片</p>
+<h1 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h1><p><img src="https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png" alt="img.png"></p>
+<h1 id="各阶段实现"><a href="#各阶段实现" class="headerlink" title="各阶段实现"></a>各阶段实现</h1><h2 id="Slicing-stage"><a href="#Slicing-stage" class="headerlink" title="Slicing stage"></a>Slicing stage</h2><p>slicing阶段思路：</p>
 <ol>
 <li>ClangMR(较Clang相比,可大规模解析代码文件)扫描完整个codebase的source file</li>
 <li>定位出target function,function内部调用的库函数可由外部传参</li>
@@ -182,7 +182,7 @@
 <p><img src="https://s2.loli.net/2022/05/01/s9RQzoqAwkEf6nK.png" alt="img_3.png"></p>
 <p>最终我们从目标代码中提取到了<code>code snippet</code>,<br>但是我们还需要将<code>code snippet</code>中所需要的头文件和调用的其他库信息作为<code>metadata</code>(这些可以从Clang生成的AST了来获取)一同添加到<code>code snippet</code>中.<br>然后将<code>code snippet</code>提供给下一阶段<code>Target Synthesis</code>.</p>
 <p>总结来说,splicing stage首先需要<code>ClangMR</code>来扫描source file;<br>根据调用的库函数有无可接收外部输入的参数,来确定<code>target function</code>;<br>生成<code>target function</code>的AST,进行切片;<br>在切片时,首先找出<code>seed statements</code>,然后基于<code>seed statements</code>进行数据流分析和控制流分析来提取<code>statements</code>,<br>并找出哪些<code>statements</code>是not be extracted;切片工作结束后,重构<code>target function</code>.<br>最终生成最后的<code>code snippets</code>.</p>
-<h4 id="Target-Synthesis"><a href="#Target-Synthesis" class="headerlink" title="Target Synthesis"></a>Target Synthesis</h4><p>将splicing阶段重构后的unknown参数具体化,由fuzzer来提供输入.下图为具体化unknown参数的对应类型</p>
+<h2 id="Target-Synthesis"><a href="#Target-Synthesis" class="headerlink" title="Target Synthesis"></a>Target Synthesis</h2><p>将splicing阶段重构后的unknown参数具体化,由fuzzer来提供输入.下图为具体化unknown参数的对应类型</p>
 <p><img src="https://s2.loli.net/2022/05/01/8TqEMHzG4tv3VRm.png" alt="img_4.png"></p>
 <p>有很多种方式可以具体化unknown参数</p>
 <p>比如有的API接收的参数类型为string，那么我们可以通过libfuzzer来生成input来feed给这个参数，<br>或者我们可以把string写入到一个文件里，然后把这个文件的路径（string类型）传递给这个参数，这样的话，就相当于可以生成两个target；</p>
@@ -193,7 +193,7 @@
 <p>为每个AST生成一个hash,并将这些ASTs的hash生成一个set,通过验证AST的hash来判断某个ast有无重写</p>
 <p><img src="https://s2.loli.net/2022/05/01/G5M8oNF2LTVfSW1.png" alt="img_6.png"></p>
 <p>如上述代码所示，在target合成最后环节，将提取到的ast作为输入，如果ast解析后还有<code>unknown</code>关键字，<br>那么就说明这个ast没有被重写（unknown X具体化），同时会通过ast的hash来记录ast的唯一性。</p>
-<h4 id="Target-evaluation"><a href="#Target-evaluation" class="headerlink" title="Target evaluation"></a>Target evaluation</h4><p>将candicate target提供给libfuzzer并在规定的时间内运行,<br>可以去除掉一些产生误报或无效crash的target.<br>将interesting target保存到临时的repo,评估结果保存到数据库里.</p>
+<h2 id="Target-evaluation"><a href="#Target-evaluation" class="headerlink" title="Target evaluation"></a>Target evaluation</h2><p>将candicate target提供给libfuzzer并在规定的时间内运行,<br>可以去除掉一些产生误报或无效crash的target.<br>将interesting target保存到临时的repo,评估结果保存到数据库里.</p>
 <p>启发式算法生成target(会生成非常多的target,但还需要我们自己去筛选哪些为valid target),<br>导致生成的target不一定是理想的target,<br>因此我们需要对每个library的API生成的candidate target进行排序和筛选.</p>
 <p>valid target的要求:</p>
 <ul>
@@ -221,7 +221,7 @@
 <p>运行fuzzer并收集crash,在资源消耗和发现crash之间折中找出理想的运行时间,即规定时间内可以发现更多的crash；</p>
 <p>收集harness如覆盖率信息,以及corpus minimization</p>
 <p>需要注意的是,每个fuzzer都会通过沙箱隔离开来,保证每个fuzzer执行的独立性,可以避免资源占用.<br>比如<code>fuzzer-A</code>在进行写入磁盘操作时,可能会占用整个磁盘.那么通过沙箱隔离就可以为每个fuzzer分配对应的磁盘资源.</p>
-<h4 id="前端UI显示"><a href="#前端UI显示" class="headerlink" title="前端UI显示"></a>前端UI显示</h4><p><img src="https://s2.loli.net/2022/05/01/PeapdzGhJ674ofx.png" alt="img_7.png"></p>
+<h2 id="前端UI显示"><a href="#前端UI显示" class="headerlink" title="前端UI显示"></a>前端UI显示</h2><p><img src="https://s2.loli.net/2022/05/01/PeapdzGhJ674ofx.png" alt="img_7.png"></p>
 <p><img src="https://s2.loli.net/2022/05/01/9QHiTCXOgIKdsvc.png" alt="img_8.png"></p>
 <ul>
 <li><p>user packages: 依赖这个包的其他包的数量</p>
@@ -241,8 +241,7 @@
 <p>三种颜色代表了这个API的三种targets生成状态</p>
 <p>绿色代表这个API当前已经生成了至少一个target</p>
 <p>use sites: 以表格形式展示调用这个API的所有调用者</p>
-<p>未来工作方向:</p>
-<ol>
+<h2 id="未来工作方向"><a href="#未来工作方向" class="headerlink" title="未来工作方向:"></a>未来工作方向:</h2><ol>
 <li>由c/c++扩展到其他的语言的target生成</li>
 <li>基于单元测试的动态执行生成target</li>
 <li>通过机器学习方式根据动态执行(覆盖率、语料库大小、crash数量)和静态执行(API名称、库的调用图)收集到的信息来对candidate target进行分类</li>
@@ -276,7 +275,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FUDGE-Fuzz-Driver-Generation-at-Scale"><span class="toc-number">1.</span> <span class="toc-text">FUDGE: Fuzz Driver Generation at Scale</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#idea"><span class="toc-number">1.1.</span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#涉及分析方法"><span class="toc-number">1.2.</span> <span class="toc-text">涉及分析方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统架构"><span class="toc-number">1.3.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各阶段实现"><span class="toc-number">1.4.</span> <span class="toc-text">各阶段实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Slicing-stage"><span class="toc-number">1.4.1.</span> <span class="toc-text">Slicing stage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target-Synthesis"><span class="toc-number">1.4.2.</span> <span class="toc-text">Target Synthesis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target-evaluation"><span class="toc-number">1.4.3.</span> <span class="toc-text">Target evaluation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前端UI显示"><span class="toc-number">1.4.4.</span> <span class="toc-text">前端UI显示</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FUDGE-Fuzz-Driver-Generation-at-Scale"><span class="toc-number">1.</span> <span class="toc-text">FUDGE: Fuzz Driver Generation at Scale</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#idea"><span class="toc-number"></span> <span class="toc-text">idea</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#涉及分析方法"><span class="toc-number"></span> <span class="toc-text">涉及分析方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统架构"><span class="toc-number"></span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#各阶段实现"><span class="toc-number"></span> <span class="toc-text">各阶段实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Slicing-stage"><span class="toc-number">1.</span> <span class="toc-text">Slicing stage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Synthesis"><span class="toc-number">2.</span> <span class="toc-text">Target Synthesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-evaluation"><span class="toc-number">3.</span> <span class="toc-text">Target evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端UI显示"><span class="toc-number">4.</span> <span class="toc-text">前端UI显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未来工作方向"><span class="toc-number">5.</span> <span class="toc-text">未来工作方向:</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
