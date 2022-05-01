@@ -7,7 +7,7 @@
 涉及分析方法:程序静态分析，程序切片
 
 ### 系统架构
-![img.png](_images/img.png)
+![img.png](https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png)
 
 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段
 前面三个阶段作为FUDGE后端，首先扫描代码库中目标libraries使用情况,提取interesting代码片段；
@@ -26,7 +26,7 @@ Slicing算法
 将function的AST作为算法输入,将所有调用target library的语句作为seed 语句;
 通过数据流和控制流分析,提取出seed相关依赖的语句.伪代码如下:
 
-![img_1.png](_images/img_1.png)
+![img_1.png](https://s2.loli.net/2022/05/01/ImsLEeWZnJ2po8z.png)
 
 但有些语句不需要提取,包括不在function内部定义的变量,
 如function参数`(memStream.getPtr(),memStream.size())`或成员变量`(e.g., mImageType)`;全局变量;
@@ -34,14 +34,14 @@ Slicing算法
 把这些不需要提取的部分用`unknown X`来标记。
 黄色部分代表extract statements,白色部分代表ignore statemens
 
-![img_2.png](_images/img_2.png)
+![img_2.png](https://s2.loli.net/2022/05/01/oQsDKjEThI2PU74.png)
 
 提取出来依赖语句之后,对函数重构,
 首先剔除掉全局变量和常量,同时递归切片(指有调用关系的函数间切片),
 并且将return语句都用return 0来代替(return 0代表target function成功执行).
 重构后的代码如下:
 
-![img_3.png](_images/img_3.png)
+![img_3.png](https://s2.loli.net/2022/05/01/s9RQzoqAwkEf6nK.png)
 
 最终我们从目标代码中提取到了`code snippet`,
 但是我们还需要将`code snippet`中所需要的头文件和调用的其他库信息作为`metadata`(这些可以从Clang生成的AST了来获取)一同添加到`code snippet`中.
@@ -57,7 +57,7 @@ Slicing算法
 #### Target Synthesis
 将splicing阶段重构后的unknown参数具体化,由fuzzer来提供输入.下图为具体化unknown参数的对应类型
 
-![img_4.png](_images/img_4.png)
+![img_4.png](https://s2.loli.net/2022/05/01/8TqEMHzG4tv3VRm.png)
 
 有很多种方式可以具体化unknown参数
 
@@ -70,11 +70,11 @@ Slicing算法
 
 下图所示代码为替换`unknown X`后的接口
 
-![img_5.png](_images/img_5.png)
+![img_5.png](https://s2.loli.net/2022/05/01/gYPH3m2DFzGhdfs.png)
 
 为每个AST生成一个hash,并将这些ASTs的hash生成一个set,通过验证AST的hash来判断某个ast有无重写
 
-![img_6.png](_images/img_6.png)
+![img_6.png](https://s2.loli.net/2022/05/01/G5M8oNF2LTVfSW1.png)
 
 如上述代码所示，在target合成最后环节，将提取到的ast作为输入，如果ast解析后还有`unknown`关键字，
 那么就说明这个ast没有被重写（unknown X具体化），同时会通过ast的hash来记录ast的唯一性。
@@ -122,9 +122,9 @@ valid target的要求:
 
 #### 前端UI显示
 
-![img_7.png](_images/img_7.png)
+![img_7.png](https://s2.loli.net/2022/05/01/PeapdzGhJ674ofx.png)
 
-![img_8.png](_images/img_8.png)
+![img_8.png](https://s2.loli.net/2022/05/01/9QHiTCXOgIKdsvc.png)
 
 - user packages: 依赖这个包的其他包的数量
 
@@ -136,7 +136,7 @@ valid target的要求:
 
 - public apis: 生成target的API有哪些
 
-![img_9.png](_images/img_9.png)
+![img_9.png](https://s2.loli.net/2022/05/01/t9og8Ihj5meMY4d.png)
 
 默认显示被其他包调用的APIs,重点关注实际使用的API.
 
