@@ -1,6 +1,6 @@
 ## FUDGE: Fuzz Driver Generation at Scale
 
-# idea
+## idea
 基于libfuzzer面向C/C++ 自动化生成fuzzer
 
 整个系统分为四个部分：切片阶段，targets合成阶段，target评估阶段，前端UI可视化显示前面三个阶段
@@ -8,17 +8,17 @@
 然后自动合成targets candidate；通过libfuzzer大规模运行targets candidate并对targets进行评估。
 每个阶段信息都会实时输出到FUDGE前端。
 
-# 涉及分析方法
+## 涉及分析方法
 涉及分析方法:程序静态分析，程序切片
 
-# 系统架构
+## 系统架构
 ![img.png](https://s2.loli.net/2022/05/01/Wz4A7uIo5tSBrhw.png)
 
 
 
-# 各阶段实现
+## 各阶段实现
 
-## Slicing stage
+### Slicing stage
 slicing阶段思路：
 1. ClangMR(较Clang相比,可大规模解析代码文件)扫描完整个codebase的source file
 2. 定位出target function,function内部调用的库函数可由外部传参
@@ -56,7 +56,7 @@ Slicing算法
 并找出哪些`statements`是not be extracted;切片工作结束后,重构`target function`.
 最终生成最后的`code snippets`.
 
-## Target Synthesis
+### Target Synthesis
 将splicing阶段重构后的unknown参数具体化,由fuzzer来提供输入.下图为具体化unknown参数的对应类型
 
 ![img_4.png](https://s2.loli.net/2022/05/01/8TqEMHzG4tv3VRm.png)
@@ -81,7 +81,7 @@ Slicing算法
 如上述代码所示，在target合成最后环节，将提取到的ast作为输入，如果ast解析后还有`unknown`关键字，
 那么就说明这个ast没有被重写（unknown X具体化），同时会通过ast的hash来记录ast的唯一性。
 
-## Target evaluation
+### Target evaluation
 将candicate target提供给libfuzzer并在规定的时间内运行,
 可以去除掉一些产生误报或无效crash的target.
 将interesting target保存到临时的repo,评估结果保存到数据库里.
